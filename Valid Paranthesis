@@ -1,0 +1,28 @@
+#include <iostream>
+#include <stack>
+#include <unordered_map>
+
+
+
+bool isValidParenthesis(string s)
+{
+    // Write your code here.
+    stack<char>stk;
+    unordered_map<char, char> map =
+    { {')', '('},
+      {']', '['},
+      {'}','{'} };
+
+    for (char ch :s){
+      if(map.find(ch) == map.end()){
+        stk.push(ch);
+      }
+      else{
+        if(stk.empty() || stk.top()!=map[ch]){
+          return false;
+        }
+        stk.pop();
+      }
+    }
+    return stk.empty();
+}
