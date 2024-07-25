@@ -1,0 +1,26 @@
+#include <algorithm>
+
+long long getTrappedWater(long long* arr, int n) {
+    if (n <= 1) {
+        return 0;
+    }
+
+    long long leftMax = arr[0];
+    long long rightMax = arr[n - 1];
+    int low = 1, high = n - 2;
+    long long water = 0;
+
+    while (low <= high) {
+        if (leftMax < rightMax) {
+            water += std::max(0LL, leftMax - arr[low]);
+            leftMax = std::max(leftMax, arr[low]);
+            low++;
+        } else {
+            water += std::max(0LL, rightMax - arr[high]);
+            rightMax = std::max(rightMax, arr[high]);
+            high--;
+        }
+    }
+
+    return water;
+}
